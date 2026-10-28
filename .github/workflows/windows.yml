@@ -1,0 +1,59 @@
+name: Windows build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/windows.yml'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - 'build.rs'
+      - 'src/**'
+      - 'assets/**'
+      - 'translations/**'
+      - 'vendor/**'
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-2022
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: pwsh
+    env:
+      CARGO_TERM_COLOR: always
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust stable (MSVC)
+        run: |
+          rustup toolchain install stable --profile minimal --target x86_64-pc-windows-msvc
+          rustup default stable
+          rustc --version
+          cargo --version
+      - name: Test application
+        run: cargo test --locked --bin torrent-finder --target x86_64-pc-windows-msvc
+      - name: Test patched receive buffer
+        run: cargo test --locked -p librqbit --lib read_buf::tests --target x86_64-pc-windows-msvc
+      - name: Build release
+        run: cargo build --locked --release --target x86_64-pc-windows-msvc
+      - name: Package Windows executable
+        run: |
+          New-Item -ItemType Directory -Force dist/nananeas-windows-x86_64 | Out-Null
+          Copy-Item target/x86_64-pc-windows-msvc/release/torrent-finder.exe dist/nananeas-windows-x86_64/
+          Copy-Item LICENSE,README.md,README.es.md dist/nananeas-windows-x86_64/
+          Copy-Item -Recurse translations dist/nananeas-windows-x86_64/
+          Compress-Archive -Path dist/nananeas-windows-x86_64 -DestinationPath dist/nananeas-windows-x86_64.zip
+          $hash = (Get-FileHash dist/nananeas-windows-x86_64.zip -Algorithm SHA256).Hash.ToLower()
+          "$hash  nananeas-windows-x86_64.zip" | Set-Content -Encoding ascii dist/SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nananeas-windows-x86_64
+          path: |
+            dist/nananeas-windows-x86_64.zip
+            dist/SHA256SUMS
+          if-no-files-found: error
+          retention-days: 30
