@@ -1,0 +1,18 @@
+<translations>
+  <title>Nananeas Torrent Downloader</title>
+  <search>Search files in your sources...</search>
+  <seed>Seed after download</seed>
+  <settings>Settings</settings>
+  <sources>Sources</sources>
+  <magnet>Magnet link</magnet>
+  <add>Add source</add>
+  <torrent>Torrent file path</torrent>
+  <location>Download folder</location>
+  <language>Language</language>
+  <notice>Interface preview: torrent indexing and downloads are not implemented yet.</notice>
+  <empty>Add a source in Settings to search for files.</empty>
+  <export>Export sources</export>
+  <import>Import sources</import>
+  <exported>Sources exported</exported>
+  <imported>New sources imported</imported>
+</translations>

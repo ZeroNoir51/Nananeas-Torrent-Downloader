@@ -1,0 +1,19 @@
+
+# Build outputs (including the local engine)
+**/target/
+# Runtime/private data
+*.log
+*.sqlite3
+*.sqlite3-*
+*.db
+.env
+.env.*
+# Local patch backups
+*.antes-*
+*.bak
+__pycache__/
+# Editor / OS metadata
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

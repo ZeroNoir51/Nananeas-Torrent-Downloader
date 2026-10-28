@@ -1,0 +1,18 @@
+<translations>
+  <title>Nananeas Torrent Downloader</title>
+  <search>Busca archivos en tus fuentes...</search>
+  <seed>Compartir después de descargar</seed>
+  <settings>Configuración</settings>
+  <sources>Fuentes</sources>
+  <magnet>Enlace magnet</magnet>
+  <add>Añadir fuente</add>
+  <torrent>Ruta del archivo torrent</torrent>
+  <location>Carpeta de descarga</location>
+  <language>Idioma</language>
+  <notice>Vista previa: el indexado y las descargas de torrents aún no están implementados.</notice>
+  <empty>Añade una fuente en Configuración para buscar archivos.</empty>
+  <export>Exportar fuentes</export>
+  <import>Importar fuentes</import>
+  <exported>Fuentes exportadas</exported>
+  <imported>Fuentes nuevas importadas</imported>
+</translations>
