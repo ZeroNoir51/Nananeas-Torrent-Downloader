@@ -15,10 +15,11 @@ if [[ "$current" != unlimited ]] && (( 10#$current < 10#$requested )); then
         exit 1
     fi
 fi
-binary="$project_dir/target/release/torrent-finder"
+binary="$project_dir/torrent-finder"
 if [[ ! -x "$binary" ]]; then
     echo "Executable missing: $binary" >&2
-    echo "Build first: cd \"$project_dir\" && cargo build --release" >&2
+    echo "Place the compiled torrent-finder executable alongside nananeas.sh." >&2
     exit 1
 fi
+cd -- "$project_dir"
 exec "$binary" "$@"
